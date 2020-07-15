@@ -208,6 +208,7 @@ public class Weapon : MonoBehaviour
 	// Other
 	private bool canFire = true;                        // Whether or not the weapon can currently fire (used for semi-auto weapons)
 	public GameObject revolverBarrel;
+	public GameObject gunEmpty;
 
 
 	// Use this for initialization
@@ -215,6 +216,7 @@ public class Weapon : MonoBehaviour
 	{
 		//Load Barrel Model
 		revolverBarrel = GameObject.FindGameObjectWithTag("Barrel");
+		gunEmpty = GameObject.FindGameObjectWithTag("GunEmpty");
 		print("test");
 
 		// Calculate the actual ROF to be used in the weapon systems.  The rateOfFire variable is
@@ -807,6 +809,17 @@ public class Weapon : MonoBehaviour
 		// Play the gunshot sound
 		GetComponent<AudioSource>().PlayOneShot(fireSound);
 
+		StartCoroutine(RecoilAnimation());
+		IEnumerator RecoilAnimation()
+		{
+			print("test2");
+			for (int i = 0; i < 15; i++)
+			{
+				gunEmpty.transform.Rotate(-8f, 0, 0);
+				yield return new WaitForSeconds(0.001f);
+			}
+		}
+
 		//Spin Chamber
 		StartCoroutine(SpinAnimation());
 		IEnumerator SpinAnimation()
@@ -1101,7 +1114,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        // Calculate random values for the recoil position and rotation
+		// Calculate random values for the recoil position and rotation
 		float kickBack = Random.Range(recoilKickBackMin, recoilKickBackMax);
 		float kickRot = Random.Range(recoilRotationMin, recoilRotationMax);
 
