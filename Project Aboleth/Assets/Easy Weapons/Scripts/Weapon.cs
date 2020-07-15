@@ -206,12 +206,17 @@ public class Weapon : MonoBehaviour
 	public AudioClip dryFireSound;						// Sound to play when the user tries to fire but is out of ammo
 
 	// Other
-	private bool canFire = true;						// Whether or not the weapon can currently fire (used for semi-auto weapons)
+	private bool canFire = true;                        // Whether or not the weapon can currently fire (used for semi-auto weapons)
+	public GameObject revolverBarrel;
 
 
 	// Use this for initialization
 	void Start()
 	{
+		//Load Barrel Model
+		revolverBarrel = GameObject.FindGameObjectWithTag("Barrel");
+		print("test");
+
 		// Calculate the actual ROF to be used in the weapon systems.  The rateOfFire variable is
 		// designed to make it easier on the user - it represents the number of rounds to be fired
 		// per second.  Here, an actual ROF decimal value is calculated that can be used with timers.
@@ -801,6 +806,17 @@ public class Weapon : MonoBehaviour
 
 		// Play the gunshot sound
 		GetComponent<AudioSource>().PlayOneShot(fireSound);
+
+		//Spin Chamber
+		StartCoroutine(SpinAnimation());
+		IEnumerator SpinAnimation()
+		{
+			for (int i = 0; i < 60; i++)
+			{
+				revolverBarrel.transform.Rotate(0, 0, 1);
+				yield return new WaitForSeconds(0.001f);
+			}
+		}
 	}
 
 	// Projectile system
