@@ -8,6 +8,7 @@ public class RadioControl : MonoBehaviour
     public AudioClip[] audioArray;
     public List<AudioClip> audioList = new List<AudioClip>();
     private AudioSource source;
+    private Transform radioDisk;
 
     void refillList()
     {
@@ -32,6 +33,7 @@ public class RadioControl : MonoBehaviour
     void Awake()
     {
         source = gameObject.GetComponent<AudioSource>();
+        radioDisk = gameObject.transform.parent.GetChild(1);
         refillList();
         getNewSong();
     }
@@ -43,6 +45,10 @@ public class RadioControl : MonoBehaviour
             AudioClip temp = getNewSong();
             source.clip = temp;
             source.Play();
+        }
+        if (source.isPlaying)
+        {
+            radioDisk.RotateAround(transform.position, transform.up, Time.deltaTime * 90f);
         }
     }
 }
