@@ -400,7 +400,7 @@ public class Weapon : MonoBehaviour
 		// Shoot a beam if this is a beam type weapon and the user presses the fire button
 		if (type == WeaponType.Beam)
 		{
-			if (Input.GetButton("Fire1") && beamHeat <= maxBeamHeat && !coolingDown)
+			if (Input.GetKeyDown("Fire1") && beamHeat <= maxBeamHeat && !coolingDown)
 			{
 				Beam();
 			}

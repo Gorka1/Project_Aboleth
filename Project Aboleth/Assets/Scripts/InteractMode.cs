@@ -18,14 +18,23 @@ public class InteractMode : MonoBehaviour
     {
         RaycastHit hit;      
 
+        //Check if Raycast Hits
         if (Physics.Raycast(playerCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out hit, 10) && hit.transform.gameObject.tag == "Interact")
         {
-            print("outlineguntest");
+            //Make outline appear
             currentHighlight = hit.transform.gameObject;
             currentHighlight.GetComponent<Outline>().enabled = true;
+
+            //Call script to make the interaction function if left clicked
+            if (Input.GetButton("Fire1"))
+            {
+                currentHighlight.GetComponent<ObjectTasks>().DoSomething();
+                //print("left clicked on interactable");
+            }
         }
         else
         {
+            //Remove outline
             if(currentHighlight != null)
             {
                 currentHighlight.GetComponent<Outline>().enabled = false;
