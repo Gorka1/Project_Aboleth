@@ -7,7 +7,7 @@ public class ObjectTasks : MonoBehaviour
     [SerializeField] int objectValue;
     RadioControl radioControl;
     AudioSource radioAudio;
-
+    [SerializeField] GameObject gunWeapon; //= GameObject.FindGameObjectWithTag("Gun");
 
     // Start is called before the first frame update
     void Start()
@@ -34,20 +34,28 @@ public class ObjectTasks : MonoBehaviour
                 {
                     print("re enable");
                     radioControl.enabled = true;
-                    radioAudio.enabled = true;
+                    radioAudio.UnPause();
                 }
                 else
                 {
                     print("still on");
                     radioControl.enabled = false;
-                    radioAudio.enabled = false;
+                    radioAudio.Pause();
                 }
                 break;
             //Gun Pickup
             case 2:
+                gunWeapon.SetActive(true);
+                GameStates player = FindObjectOfType<GameStates>();
+                player.numberOfWeapons++;
+                Destroy(this.gameObject);
                 break;
             //Flashlight Pickup
             case 3:
+                gunWeapon.SetActive(true);
+                player = FindObjectOfType<GameStates>();
+                player.numberOfWeapons++;
+                Destroy(this.gameObject);
                 break;
         }
     }

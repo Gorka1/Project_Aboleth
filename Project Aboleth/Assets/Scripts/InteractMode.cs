@@ -26,7 +26,7 @@ public class InteractMode : MonoBehaviour
             currentHighlight.GetComponent<Outline>().enabled = true;
 
             //Call script to make the interaction function if left clicked
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
                 currentHighlight.GetComponent<ObjectTasks>().DoSomething();
                 //print("left clicked on interactable");

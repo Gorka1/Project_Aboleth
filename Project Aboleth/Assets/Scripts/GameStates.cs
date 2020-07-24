@@ -7,22 +7,33 @@ public class GameStates : MonoBehaviour
     [SerializeField] bool useItems = false;
     [SerializeField] GameObject weaponsEmpty;
     [SerializeField] InteractMode interactMode;
+    [SerializeField] public int numberOfWeapons;
 
     // Start is called before the first frame update
     void Start()
     {
         //Get stuff to Enable/Disable
-        weaponsEmpty = FindObjectOfType<WeaponSystem>().gameObject;
+        //weaponsEmpty = GameObject.FindGameObjectWithTag("WeaponsEmpty");
         interactMode = FindObjectOfType<InteractMode>();
+        numberOfWeapons = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("SwapMode"))
+        //Switch Modes by Pressing Space
+        if(Input.GetButtonDown("SwapMode") && numberOfWeapons > 0)
         {
             if(!useItems)
             {
+                //Remove all outlines when switching to weapons
+                Outline[] outlineObjs = FindObjectsOfType<Outline>();
+                foreach(Outline outline in outlineObjs)
+                {
+                    outline.enabled = false;
+                }
+
+                //Turn on weapons
                 useItems = true;
             }
             else
