@@ -61,7 +61,10 @@ public class RadioControl : MonoBehaviour
 
         for (int i = 0; i < hits.Length; i++)
         {
-            source.maxDistance /= distDiv;
+            if (hits[i].transform.gameObject.CompareTag("Wall"))
+            {
+                source.maxDistance /= distDiv;
+            }
         }
     }
 }

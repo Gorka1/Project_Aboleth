@@ -8,6 +8,7 @@ public class ObjectTasks : MonoBehaviour
     RadioControl radioControl;
     AudioSource radioAudio;
     [SerializeField] GameObject gunWeapon; //= GameObject.FindGameObjectWithTag("Gun");
+    [SerializeField] bool doorStat = true;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,20 @@ public class ObjectTasks : MonoBehaviour
                 player = FindObjectOfType<GameStates>();
                 player.numberOfWeapons++;
                 Destroy(this.gameObject);
+                break;
+            //Door Open
+            case 4:
+                //Transform doorTrans = this.transform.GetChild(0);
+                if (doorStat)
+                {
+                    this.transform.Rotate(0f, 90f, 0.0f, Space.Self);
+                    doorStat = false;
+                }else
+                {
+                    this.transform.Rotate(0f, -90f, 0.0f, Space.Self);
+                    doorStat = true;
+                }
+                
                 break;
         }
     }
