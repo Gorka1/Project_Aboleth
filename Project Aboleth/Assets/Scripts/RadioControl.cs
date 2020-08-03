@@ -7,8 +7,11 @@ public class RadioControl : MonoBehaviour
 {
     public AudioClip[] audioArray;
     public List<AudioClip> audioList = new List<AudioClip>();
+    public float maxDist = 100;
+    public float distDiv = 5;
     private AudioSource source;
     private Transform radioDisk;
+    private Transform playerPos;
 
     void refillList()
     {
@@ -34,6 +37,7 @@ public class RadioControl : MonoBehaviour
     {
         source = gameObject.GetComponent<AudioSource>();
         radioDisk = gameObject.transform.parent.GetChild(1);
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
         refillList();
         getNewSong();
     }
@@ -49,6 +53,18 @@ public class RadioControl : MonoBehaviour
         if (source.isPlaying)
         {
             radioDisk.RotateAround(transform.position, transform.up, Time.deltaTime * 90f);
+        }
+
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(transform.position, playerPos.transform.position);
+        source.maxDistance = maxDist;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].transform.gameObject.CompareTag("Wall"))
+            {
+                source.maxDistance /= distDiv;
+            }
         }
     }
 }
