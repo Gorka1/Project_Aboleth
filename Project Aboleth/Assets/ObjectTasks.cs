@@ -9,11 +9,13 @@ public class ObjectTasks : MonoBehaviour
     AudioSource radioAudio;
     [SerializeField] GameObject gunWeapon; //= GameObject.FindGameObjectWithTag("Gun");
     [SerializeField] bool doorStat = true;
+    [SerializeField] GameObject screen;
+    FirstPersonCharacter fpsScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        fpsScript = FindObjectOfType<FirstPersonCharacter>();
     }
 
     // Update is called once per frame
@@ -70,7 +72,18 @@ public class ObjectTasks : MonoBehaviour
                     this.transform.Rotate(0f, -90f, 0.0f, Space.Self);
                     doorStat = true;
                 }
-                
+                break;
+            case 5:
+                if(screen.activeSelf)
+                {
+                    screen.SetActive(false);
+                    fpsScript.enabled = true;
+                }
+                else
+                {
+                    screen.SetActive(true);
+                    fpsScript.enabled = false;
+                }
                 break;
         }
     }
