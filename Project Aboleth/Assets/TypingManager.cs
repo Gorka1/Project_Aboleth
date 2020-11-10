@@ -96,7 +96,7 @@ public class TypingManager : MonoBehaviour
             typeText.text = "";
 
             //Move text up if there is no room (I wrote this so the first line gets deleted effectively making it scroll down)
-            while (lineList.Count > 16)
+            while (lineList.Count > 8)
             {
                 //Remove first line in the array
                 lineList.RemoveAt(0);
